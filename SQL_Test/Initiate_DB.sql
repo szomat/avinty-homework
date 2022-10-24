@@ -33,7 +33,9 @@ CREATE TABLE Relationships (
     ConnectionStartDate date NOT NULL,
     ConnectionEndDate date,
     CONSTRAINT Relationships_PK PRIMARY KEY (Relationship_ID),
-	CONSTRAINT Relationships_Patients_FK FOREIGN KEY (Patient_ID_Who) REFERENCES PATIENTS (Patient_ID)
+	CONSTRAINT Relationships_Patients_FK FOREIGN KEY (Patient_ID_Who) REFERENCES PATIENTS (Patient_ID),
+	CONSTRAINT Relationships_Dates_Check CHECK (ConnectionStartDate <= ConnectionEndDate),
+	CONSTRAINT Relationships_Quality_Check CHECK (ConnectionDistance >= 1 AND ConnectionDistance <= 10)
 );
 
 CREATE OR REPLACE TRIGGER birthDateCheck BEFORE INSERT ON Relationships
